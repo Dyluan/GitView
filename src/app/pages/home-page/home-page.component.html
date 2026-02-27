@@ -1,0 +1,13 @@
+<div class="main">
+    <app-search-bar 
+        [(onTheFlyInput)]="onTheFlyInput" 
+        [(randomFact)]="randomFact"
+        [(profile_picture_url)]="profile_picture_url"
+        [(user_repos_url)]="user_repos_url"
+    />
+    {{ onTheFlyInput() }}
+    <app-center 
+        [randomFact]="randomFact()" 
+        [profile_picture_url]="profile_picture_url()"
+    />
+</div>

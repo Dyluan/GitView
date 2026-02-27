@@ -1,0 +1,37 @@
+.search_container img {
+    width: 16px;
+    height: 16px;
+}
+.main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 32px 0 32px 0;
+}
+.input_container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.input_container input {
+    width: 40%;
+    padding: 16px 16px 16px 48px;
+    background-color: #0F172A;
+    color: #64748B;
+    border-radius: 8px;
+    font-size: 18px;
+    border: 1px solid #64748B;
+    background: url(/images/search_icon.svg) no-repeat left 16px center;
+    background-size: 20px;
+
+}
+.search_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    aspect-ratio: 1/1;
+}
+.search_icon:hover {
+    cursor: pointer;
+}

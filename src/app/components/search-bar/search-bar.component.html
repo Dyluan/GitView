@@ -1,0 +1,14 @@
+<div class="main">
+    <div class="input_container">
+        <input 
+            type="text" 
+            placeholder="Search GitHub user" 
+            (input)="displayInputText($event)" 
+        />
+        <div class="search_container">
+            <button class="search_icon" (click)="new()">
+                <img src="images/search_icon.svg" alt="search_icon">
+            </button>
+        </div>
+    </div>
+</div>
