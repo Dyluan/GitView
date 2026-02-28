@@ -10,6 +10,7 @@ export class CenterComponent {
 
   randomFact = input<any>();
   profile_picture_url = input<String>('');
+  repositories = input<[]>([]);
 
   isEmpty(obj: Object) {
     for (const prop in obj) {

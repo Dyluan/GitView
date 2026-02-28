@@ -19,5 +19,6 @@ export class HomePageComponent {
 
   profile_picture_url = signal<String>('');
   user_repos_url = signal<String>('');
+  repositories = signal<[]>([]);
 
 }

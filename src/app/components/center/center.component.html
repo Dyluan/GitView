@@ -1,3 +1,6 @@
 <div class="main">
     <img [src]="profile_picture_url()" alt="user profile picture">
+    @if (repositories().length > 0) {
+        This user has created {{ repositories().length }} repositories.
+    }
 </div>

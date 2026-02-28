@@ -14,5 +14,13 @@
         "pathRewrite": {
             "^/githubAPI/users/": ""
         }
+    },
+    "/githubAPI/repos/*": {
+        "target": " https://api.github.com/repos/",
+        "secure": false,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/githubAPI/repos/": ""
+        }
     }
 }

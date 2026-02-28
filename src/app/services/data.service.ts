@@ -22,5 +22,5 @@ export class DataService {
 
   getGithubUserCommits(url: String) {
     return this.http.get(`${url}`, { params: { 'per_page': 100 }});
-  }
+  };
 }

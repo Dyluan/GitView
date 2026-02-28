@@ -1,11 +1,12 @@
 .main {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100%;
 }
 .main img {
-    width: 32px;
-    height: 32px;
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
 }
