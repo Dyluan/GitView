@@ -1,6 +1,6 @@
 import { Component, signal, input, model } from '@angular/core';
 import { DataService } from '../../services/data.service';
-import { switchMap, pipe } from 'rxjs';
+import { switchMap, pipe, map, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-search-bar',
@@ -13,7 +13,7 @@ export class SearchBarComponent {
 
   constructor(private dataService: DataService) {}
 
-  onTheFlyInput = model<String>();
+  onTheFlyInput = model<String>('');
   randomFact = model<any>();
   profile_picture_url = model<String>('');
   user_repos_url = model<String>('');
@@ -39,31 +39,29 @@ export class SearchBarComponent {
     })
   };
 
-  tripleSwitch(): void {
-    this.dataService.getGithubUser(this.onTheFlyInput()!).pipe(
-      switchMap((user: any) => {
-        console.log('github response:', user);
-        this.profile_picture_url.set(user.avatar_url);
-        this.user_repos_url.set(user.repos_url);
-
+  tripleSwitch() {
+    this.dataService.getGithubUser(this.onTheFlyInput()).pipe(
+      switchMap((gitHubUser: any) => {
+        // console.log(`1. github user: ${gitHubUser}`);
+        console.log('1. github user:', gitHubUser);
+        this.profile_picture_url.set(gitHubUser.avatar_url);
+        this.user_repos_url.set(gitHubUser.repos_url);
+        
         return this.dataService.getGithubUserRepos(this.user_repos_url());
-      }), 
-      switchMap((repos: any[]) => {
-        console.log('user repos:', repos);
-        this.repositories.set(repos);
-        
-        // Example: Make a third API call here
-        // You need to return an Observable for the chain to work
-        // For example, if you want to get details of the first repo:
-        // return this.dataService.getSomeOtherData(repos[0].url);
-        
-        // Placeholder - replace with your actual third API call
-        return this.dataService.getRandomFact();
+      }),
+      switchMap((userRepos: any) => {
+        console.log('2. user repositories:', userRepos);
+        this.repositories.set(userRepos);
+        const commitObservables = userRepos.map((userRepo: any) => {
+          const trimmed_url = userRepo.commits_url.split('commits')[0];
+          return this.dataService.getGithubUserCommits(trimmed_url);
+        });
+
+        return forkJoin(commitObservables);
       })
-    ).subscribe((finalResult: any) => {
-      console.log('final result:', finalResult);
-      // Handle the result of the third API call
+    ).subscribe((commit_details: any) => {
+      console.log('3. commit details: ', commit_details);
     })
-  };
+  }
 
 }
