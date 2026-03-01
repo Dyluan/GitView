@@ -1,6 +1,7 @@
 import { Component, signal, input, model } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { switchMap, pipe, map, forkJoin } from 'rxjs';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-search-bar',
@@ -41,19 +42,22 @@ export class SearchBarComponent {
 
   tripleSwitch() {
     this.dataService.getGithubUser(this.onTheFlyInput()).pipe(
-      switchMap((gitHubUser: any) => {
-        // console.log(`1. github user: ${gitHubUser}`);
+      switchMap((userResponse: HttpResponse<any>) => {
+        const gitHubUser = userResponse.body;
         console.log('1. github user:', gitHubUser);
         this.profile_picture_url.set(gitHubUser.avatar_url);
         this.user_repos_url.set(gitHubUser.repos_url);
         
         return this.dataService.getGithubUserRepos(this.user_repos_url());
       }),
-      switchMap((userRepos: any) => {
-        console.log('2. user repositories:', userRepos);
-        this.repositories.set(userRepos);
-        const commitObservables = userRepos.map((userRepo: any) => {
-          const trimmed_url = userRepo.commits_url.split('commits')[0];
+      switchMap((userRepos: HttpResponse<any>) => {
+        const repos = userRepos.body;
+        console.log('2. user repositories:', repos);
+        console.log('2. My headers:', userRepos.headers);
+        this.repositories.set(repos);
+        const commitObservables = repos.map((repo: any) => {
+          // commits_url: "https://api.github.com/repos/Dyluan/Dyluan/commits{/sha}"
+          const trimmed_url = repo.commits_url.split('{')[0];
           return this.dataService.getGithubUserCommits(trimmed_url);
         });
 

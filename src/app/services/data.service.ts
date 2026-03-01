@@ -8,20 +8,22 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  getRandomFact() {
-    return this.http.get('/animalsAPI/facts');
-  };
-
   getGithubUser(username: String) {
-    return this.http.get(`/githubAPI/users/${username}`);
+    return this.http.get(`/githubAPI/users/${username}`, {
+      observe: 'response'
+    });
   };
 
   getGithubUserRepos(url: String) {
-    return this.http.get(`${url}`);
+    return this.http.get(`${url}`, {
+      observe: 'response'
+    });
   };
 
   getGithubUserCommits(url: String) {
-    // return this.http.get(`${url}`, { params: { 'per_page': 100 }});
-    return this.http.get(`${url}`);
+    return this.http.get(`${url}`, { 
+      params: { 'per_page': 100 },
+      observe: 'response'
+    });
   };
 }

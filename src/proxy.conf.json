@@ -1,12 +1,4 @@
 {
-    "/animalsAPI/*": {
-        "target": "https://dogapi.dog/api/v2",
-        "secure": false,
-        "changeOrigin": true,
-        "pathRewrite": {
-            "^/animalsAPI": ""
-        }
-    },
     "/githubAPI/users/*": {
         "target": " https://api.github.com/users/",
         "secure": false,
