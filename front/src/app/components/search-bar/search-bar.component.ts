@@ -14,7 +14,7 @@ export class SearchBarComponent {
 
   constructor(private dataService: DataService) {}
 
-  onTheFlyInput = model<String>('');
+  onTheFlyInput = model<string>('');
   randomFact = model<any>();
   profile_picture_url = model<String>('');
   user_repos_url = model<String>('');
@@ -39,6 +39,41 @@ export class SearchBarComponent {
       this.repositories.set(repositories);
     })
   };
+
+  callServer(): void {
+    this.dataService.newGitHubUser(this.onTheFlyInput()).pipe(
+      switchMap((userData: any) => {
+        console.log('userData:', userData);
+        this.profile_picture_url.set(userData.avatar_url);
+        this.user_repos_url.set(userData.repos_url);
+
+        return this.dataService.newGithubUserRepos(this.onTheFlyInput());
+      }),
+      switchMap((userRepos: any) => {
+        console.log('user repositories:', userRepos);
+        this.repositories.set(userRepos);
+
+        const commitObservables = userRepos.map((repo: any) => {
+          const repoName = repo.name;
+          return this.dataService.newGithubUserCommits(this.onTheFlyInput(), repoName);
+        });
+
+        return forkJoin(commitObservables);
+      })
+    ).subscribe((userCommits: any) => {
+      let number = 0;
+      console.log('Past year commits: ', userCommits);
+      for (let commitArray of userCommits) {
+        for (let commit of commitArray) {
+          let commitDate = commit.commit.author.date;
+          // console.log('commited on ', commitDate);
+          number += 1;
+        }
+        console.log('-----');
+      }
+      console.log(number, ' commits');
+    })
+  }
 
   tripleSwitch() {
     this.dataService.getGithubUser(this.onTheFlyInput()).pipe(
