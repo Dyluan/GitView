@@ -2,6 +2,7 @@ import { Component, signal, output } from '@angular/core';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
 import { CenterComponent } from '../../components/center/center.component';
 import { ProfileInfosComponent } from '../../components/profile-infos/profile-infos.component';
+import { ProfileStatsComponent } from '../../components/profile-stats/profile-stats.component';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -9,7 +10,8 @@ import { DataService } from '../../services/data.service';
   imports: [
     SearchBarComponent, 
     CenterComponent, 
-    ProfileInfosComponent
+    ProfileInfosComponent,
+    ProfileStatsComponent,
   ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',

@@ -1,0 +1,36 @@
+<div class="main">
+  <div class="content">
+    <div class="header">
+      <img src="images/stats.svg" alt="stats">
+      Statistics
+    </div>
+    <div class="center">
+      <div class="left">
+        <div class="big_number">
+          {{ dataService.userRepositories().length }}
+        </div>
+        <div class="big_title">
+          Repos
+        </div>
+      </div>
+      <div class="vertical_line"></div>
+      <div class="middle">
+        <div class="big_number">
+          {{ dataService.userFollowers() }}
+        </div>
+        <div class="big_title">
+          Followers
+        </div>
+      </div>
+      <div class="vertical_line"></div>
+      <div class="right">
+        <div class="big_number">
+          {{ dataService.userFollowing() }}
+        </div>
+        <div class="big_title">
+          Following
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

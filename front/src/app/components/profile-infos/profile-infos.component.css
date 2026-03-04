@@ -1,0 +1,70 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter';
+  margin-bottom: 24px;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border: 0.5px solid #94A3B8;
+  border-radius: 8px;
+  padding: 24px;
+  font-family: inherit;
+  background-color: #0F172A;
+}
+.profile_picture img {
+  height: 128px;
+  width: 128px;
+  border-radius: 50%;
+}
+.profile_picture {
+  margin-bottom: 24px;
+}
+.profile_name {
+  font-family: 'Inter';
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+}
+.profile_pseudo {
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 24px;
+  color: #256AF4;
+  font-weight: 600;
+}
+.profile_description {
+  color: #94A3B8;
+  font-size: 14px;
+  line-height: 22.8px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.location_container, .profile_github {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+.location_container {
+  margin-bottom: 8px;
+}
+.location {
+  color: #94A3B8;
+  font-size: 14px;
+  line-height: 22.8px;
+  font-weight: 600;
+}
+.github a{
+  text-decoration: none;
+  color: #256AF4;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}

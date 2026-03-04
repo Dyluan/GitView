@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -8,34 +8,26 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  getGithubUser(username: String) {
-    return this.http.get(`/githubAPI/users/${username}`, {
-      observe: 'response'
-    });
-  };
+  userPhoto = signal<string>('');
+  userName = signal<string>('');
+  userPseudo = signal<string>('');
+  userBio = signal<string>('');
+  userLocation = signal<string>('');
+  userLink = signal<string>('');
+  userRepositories = signal<any[]>([]);
+  userProfileUrl = signal<string>('');
+  userFollowers = signal<number>(0);
+  userFollowing = signal<number>(0);
 
   // new
   newGitHubUser(username: string) {
     return this.http.get(`http://localhost:3000/api/github/users`, { params: {username: username}});
   };
 
-  getGithubUserRepos(url: String) {
-    return this.http.get(`${url}`, {
-      observe: 'response'
-    });
-  };
-
   // new
   newGithubUserRepos(username: string) {
     return this.http.get(`http://localhost:3000/api/github/repos`, { params: {username: username}});
   }
-
-  getGithubUserCommits(url: String) {
-    return this.http.get(`${url}`, { 
-      params: { 'per_page': 100 },
-      observe: 'response'
-    });
-  };
 
   // new
   newGithubUserCommits(username: string, reponame: string) {

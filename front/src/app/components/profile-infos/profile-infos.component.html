@@ -1,11 +1,18 @@
 <div class="main">
-  <div class="profile_picture"></div>
-  <div class="profile_name">Dylan Jonckheere</div>
-  <div class="profile_pseudo">Dyluan</div>
-  <div class="profile_description">Enthusiast web dev looking for new opportunities</div>
-  <div class="location_container">
-    <img src="" alt="location">
-    <div class="location">Bruxelles</div>
+  <div class="content">
+    <div class="profile_picture">
+      <img [src]="dataService.userPhoto()" alt="profile picture">
+    </div>
+    <div class="profile_name">{{ dataService.userName() }}</div>
+    <div class="profile_pseudo">&#64;{{ dataService.userPseudo() }}</div>
+    <div class="profile_description">{{ dataService.userBio() }}</div>
+    <div class="location_container">
+      <img src="images/location.svg" alt="location">
+      <div class="location">{{ dataService.userLocation() }}</div>
+    </div>
+    <div class="profile_github">
+      <img src="images/link.svg" alt="github link">
+      <div class="github"><a [href]="dataService.userProfileUrl()">github</a></div>
+    </div>
   </div>
-  
 </div>

@@ -24,22 +24,6 @@ export class SearchBarComponent {
     this.onTheFlyInput.set(event.target.value);
   };
 
-  // TODO, add a 2nd switchMap call to chain a 3rd request.
-  new(): void {
-    this.dataService.getGithubUser(this.onTheFlyInput()!).pipe(
-      switchMap((response: any) => {
-        console.log('github response:', response);
-        this.profile_picture_url.set(response.avatar_url);
-        this.user_repos_url.set(response.repos_url);
-
-        return this.dataService.getGithubUserRepos(this.user_repos_url());
-      })
-    ).subscribe((repositories: any) => {
-      console.log('user repos:', repositories);
-      this.repositories.set(repositories);
-    })
-  };
-
   callServer(): void {
     this.dataService.newGitHubUser(this.onTheFlyInput()).pipe(
       switchMap((userData: any) => {
@@ -47,11 +31,21 @@ export class SearchBarComponent {
         this.profile_picture_url.set(userData.avatar_url);
         this.user_repos_url.set(userData.repos_url);
 
+        this.dataService.userPhoto.set(userData.avatar_url);
+        this.dataService.userBio.set(userData.bio);
+        this.dataService.userLocation.set(userData.location);
+        this.dataService.userName.set(userData.name);
+        this.dataService.userPseudo.set(userData.login);
+        this.dataService.userProfileUrl.set(userData.html_url);
+        this.dataService.userFollowers.set(userData.followers);
+        this.dataService.userFollowing.set(userData.following);
+
         return this.dataService.newGithubUserRepos(this.onTheFlyInput());
       }),
       switchMap((userRepos: any) => {
         console.log('user repositories:', userRepos);
         this.repositories.set(userRepos);
+        this.dataService.userRepositories.set(userRepos);
 
         const commitObservables = userRepos.map((repo: any) => {
           const repoName = repo.name;
@@ -72,34 +66,6 @@ export class SearchBarComponent {
         console.log('-----');
       }
       console.log(number, ' commits');
-    })
-  }
-
-  tripleSwitch() {
-    this.dataService.getGithubUser(this.onTheFlyInput()).pipe(
-      switchMap((userResponse: HttpResponse<any>) => {
-        const gitHubUser = userResponse.body;
-        console.log('1. github user:', gitHubUser);
-        this.profile_picture_url.set(gitHubUser.avatar_url);
-        this.user_repos_url.set(gitHubUser.repos_url);
-        
-        return this.dataService.getGithubUserRepos(this.user_repos_url());
-      }),
-      switchMap((userRepos: HttpResponse<any>) => {
-        const repos = userRepos.body;
-        console.log('2. user repositories:', repos);
-        console.log('2. My headers:', userRepos.headers);
-        this.repositories.set(repos);
-        const commitObservables = repos.map((repo: any) => {
-          // commits_url: "https://api.github.com/repos/Dyluan/Dyluan/commits{/sha}"
-          const trimmed_url = repo.commits_url.split('{')[0];
-          return this.dataService.getGithubUserCommits(trimmed_url);
-        });
-
-        return forkJoin(commitObservables);
-      })
-    ).subscribe((commit_details: any) => {
-      console.log('3. commit details: ', commit_details);
     })
   }
 
