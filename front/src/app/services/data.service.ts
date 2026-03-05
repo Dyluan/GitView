@@ -18,6 +18,7 @@ export class DataService {
   userProfileUrl = signal<string>('');
   userFollowers = signal<number>(0);
   userFollowing = signal<number>(0);
+  userTotalCommits = signal<number>(0);
 
   // new
   newGitHubUser(username: string) {

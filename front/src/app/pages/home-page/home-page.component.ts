@@ -1,17 +1,19 @@
 import { Component, signal, output } from '@angular/core';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
-import { CenterComponent } from '../../components/center/center.component';
 import { ProfileInfosComponent } from '../../components/profile-infos/profile-infos.component';
 import { ProfileStatsComponent } from '../../components/profile-stats/profile-stats.component';
+import { ContributionsComponent } from '../../components/contributions/contributions.component';
+import { ActivityComponent } from '../../components/activity/activity.component';
 import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-home-page',
   imports: [
     SearchBarComponent, 
-    CenterComponent, 
     ProfileInfosComponent,
     ProfileStatsComponent,
+    ContributionsComponent,
+    ActivityComponent,
   ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',

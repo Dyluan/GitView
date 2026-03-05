@@ -66,6 +66,7 @@ export class SearchBarComponent {
         console.log('-----');
       }
       console.log(number, ' commits');
+      this.dataService.userTotalCommits.set(number);
     })
   }
 
