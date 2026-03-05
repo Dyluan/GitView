@@ -1,14 +1,22 @@
 <div class="main">
-    <div class="input_container">
-        <input 
-            type="text" 
-            placeholder="Search GitHub user" 
-            (input)="displayInputText($event)" 
-        />
-        <div class="search_container">
-            <button class="search_icon" (click)="callServer()">
-                <img src="images/search_icon.svg" alt="search_icon">
-            </button>
+    <div class="container">
+        <div class="left">
+            <div class="left_image">
+                <img src="images/magnifying_glass.svg" alt="search icon">
+            </div>
+            <div class="input_container">
+                <input 
+                    type="text" 
+                    placeholder="Search GitHub User..." 
+                    (input)="displayInputText($event)" 
+                    (keydown.enter)="callServer()"
+                    />
+            </div>
+        </div>
+        <div class="right">
+            <div class="right_button">
+                <button class="button" (click)="callServer()">Enter</button>
+            </div>
         </div>
     </div>
 </div>

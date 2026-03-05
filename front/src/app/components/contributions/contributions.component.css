@@ -17,7 +17,8 @@
   padding: 24px;
   font-family: inherit;
   background-color: #0F172A;
-  width: 100%;
+  /* width: 100%; */
+  width: max-content;
 }
 .header {
   display: flex;

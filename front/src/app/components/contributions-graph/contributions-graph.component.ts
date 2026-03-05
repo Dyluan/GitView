@@ -61,7 +61,6 @@ export class ContributionsGraphComponent {
     for (let i = 0; i < dates.length; i += 7) {
       this.weeklyDates.push(dates.slice(i, i + 7));
     }
-    
-    console.log(this.weeklyDates);
+  
   }
 }
