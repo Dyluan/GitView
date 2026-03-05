@@ -1,0 +1,15 @@
+<div class="main">
+  <div class="graph">
+    @for (week of weeklyDates; track $index) {
+    <div class="column">
+      @for(date of week; track date) {
+      <div class="row">
+        <div class="square" [class]="'square ' + getCommitLevel(getCommitCountForDate(date))"
+          [title]="date + ': ' + getCommitCountForDate(date) + ' commits'">
+        </div>
+      </div>
+      }
+    </div>
+    }
+  </div>
+</div>

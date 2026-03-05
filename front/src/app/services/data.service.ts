@@ -20,6 +20,8 @@ export class DataService {
   userFollowing = signal<number>(0);
   userTotalCommits = signal<number>(0);
 
+  userCommitsDates = signal<Object[]>([]);
+
   // new
   newGitHubUser(username: string) {
     return this.http.get(`http://localhost:3000/api/github/users`, { params: {username: username}});

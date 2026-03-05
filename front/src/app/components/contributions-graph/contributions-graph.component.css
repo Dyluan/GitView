@@ -1,0 +1,34 @@
+.main {
+  width: 100%;
+}
+.graph {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.square {
+  height: 11px;
+  width: 11px;
+  border: 1px solid #1b1f230f;
+  border-radius: 2px;
+}
+.level-0 {
+  background-color: #1E293B;
+}
+.level-1 {
+  background-color: rgba(37, 106, 244, 0.2);
+}
+.level-2 {
+  background-color: rgba(37, 106, 244, 0.4);
+}
+.level-3 {
+  background-color: rgba(37, 106, 244, 0.6);
+}
+.level-4 {
+  background-color: rgba(37, 106, 244, 1);
+}
