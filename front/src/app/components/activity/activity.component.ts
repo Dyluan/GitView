@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-activity',
@@ -7,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './activity.component.css'
 })
 export class ActivityComponent {
+
+  constructor(public dataService: DataService) {}
+
+  
 
 }

@@ -20,7 +20,7 @@ export class DataService {
   userFollowing = signal<number>(0);
   userPublicRepos = signal<number>(0);
   userTotalCommits = signal<number>(0);
-  userEvents = signal<Object[]>([]);
+  userEvents = signal<any[]>([]);
 
   userCommitsDates = signal<Object[]>([]);
 
