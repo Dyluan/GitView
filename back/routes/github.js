@@ -69,6 +69,7 @@ router.get('/users', async (req, res) => {
   }
 });
 
+// TODO: apply the helper function to this endpoint as well as there could be more than 100 repositories
 router.get('/repos', async (req, res) => {
   console.log('/repos called');
   try {
@@ -108,6 +109,32 @@ router.get('/commits', async (req, res) => {
     );
 
     res.status(200).json(allCommits);
+
+  } catch (error) {
+    if (error.response) {
+      res.status(error.response.status).json(error.response.data);
+    } else {
+      res.status(500).json({ error: "Proxy request failed", message: error.message });
+    }
+  }
+});
+
+router.get('/events', async (req, res) => {
+  console.log('/events called');
+  try {
+
+    const username = req.query.username;
+    
+    const response = await axios({
+      method: 'GET',
+      url: `https://api.github.com/users/${username}/events`,
+      headers: {
+        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+        Accept: "application/vnd.github+json"
+      }
+    });
+
+    res.status(response.status).json(response.data);
 
   } catch (error) {
     if (error.response) {
