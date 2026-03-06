@@ -5,6 +5,8 @@
   justify-content: center;
   font-family: 'Inter';
   margin-bottom: 24px;
+
+  max-width: 352px;
 }
 .content {
   display: flex;
@@ -45,6 +47,7 @@
   line-height: 22.8px;
   font-weight: 600;
   margin-bottom: 16px;
+  text-align: center;
 }
 .location_container, .profile_github {
   display: flex;

@@ -15,10 +15,6 @@ export class SearchBarComponent {
   constructor(private dataService: DataService) {}
 
   onTheFlyInput = model<string>('');
-  randomFact = model<any>();
-  profile_picture_url = model<String>('');
-  user_repos_url = model<String>('');
-  repositories = model<[]>([]);
 
   displayInputText(event: any): void {
     this.onTheFlyInput.set(event.target.value);
@@ -28,8 +24,6 @@ export class SearchBarComponent {
     this.dataService.newGitHubUser(this.onTheFlyInput()).pipe(
       switchMap((userData: any) => {
         console.log('userData:', userData);
-        this.profile_picture_url.set(userData.avatar_url);
-        this.user_repos_url.set(userData.repos_url);
 
         this.dataService.userPhoto.set(userData.avatar_url);
         this.dataService.userBio.set(userData.bio);
@@ -39,13 +33,24 @@ export class SearchBarComponent {
         this.dataService.userProfileUrl.set(userData.html_url);
         this.dataService.userFollowers.set(userData.followers);
         this.dataService.userFollowing.set(userData.following);
+        this.dataService.userPublicRepos.set(userData.public_repos);
 
-        return this.dataService.newGithubUserRepos(this.onTheFlyInput());
+        // the user profile is loaded
+        this.dataService.isProfileDataLoaded.set(true);
+        // the user stats are loaded as well
+        this.dataService.isProfileStatsLoaded.set(true);
+
+        return forkJoin({
+          userRepos: this.dataService.newGithubUserRepos(this.onTheFlyInput()),
+          userEvents: this.dataService.getGithubUserEvents(this.onTheFlyInput())
+        });
       }),
-      mergeMap((userRepos: any) => {
+      mergeMap((result: any) => {
+        const { userRepos, userEvents } = result;
         console.log('user repositories:', userRepos);
-        this.repositories.set(userRepos);
+        console.log('recent events:', userEvents);
         this.dataService.userRepositories.set(userRepos);
+        this.dataService.userEvents.set(userEvents.slice(0, 5));
 
         const commitObservables = userRepos.map((repo: any) => {
           const repoName = repo.name;

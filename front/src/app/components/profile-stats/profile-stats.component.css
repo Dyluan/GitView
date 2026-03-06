@@ -3,6 +3,8 @@
   flex-direction: column;
   align-items: center;
   font-family: 'Inter';
+
+  max-width: 352px;
 }
 .content {
   display: flex;
@@ -15,7 +17,6 @@
   padding: 24px;
   font-family: inherit;
   background-color: #0F172A;
-  font-family: inherit;
 }
 .header {
   font-weight: bold;

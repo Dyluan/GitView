@@ -18,21 +18,25 @@ export class DataService {
   userProfileUrl = signal<string>('');
   userFollowers = signal<number>(0);
   userFollowing = signal<number>(0);
+  userPublicRepos = signal<number>(0);
   userTotalCommits = signal<number>(0);
+  userEvents = signal<Object[]>([]);
 
   userCommitsDates = signal<Object[]>([]);
 
-  // new
+  isProfileDataLoaded = signal<boolean>(false);
+  isProfileStatsLoaded = signal<boolean>(false);
+  isProfileContribsLoaded = signal<boolean>(false);
+  isProfileActivityLoaded = signal<boolean>(false);
+
   newGitHubUser(username: string) {
     return this.http.get(`http://localhost:3000/api/github/users`, { params: {username: username}});
   };
 
-  // new
   newGithubUserRepos(username: string) {
     return this.http.get(`http://localhost:3000/api/github/repos`, { params: {username: username}});
   }
 
-  // new
   newGithubUserCommits(username: string, reponame: string) {
     return this.http.get(`http://localhost:3000/api/github/commits`, 
       { params: { 
@@ -40,5 +44,9 @@ export class DataService {
         repo: reponame
       } }
     )
+  }
+
+  getGithubUserEvents(username: string) {
+    return this.http.get(`http://localhost:3000/api/github/events`, { params: {username: username} });
   }
 }

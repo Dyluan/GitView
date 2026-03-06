@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -10,7 +10,5 @@ import { DataService } from '../../services/data.service';
 export class ProfileStatsComponent {
 
   constructor(public dataService: DataService) {}
-
-  
 
 }
