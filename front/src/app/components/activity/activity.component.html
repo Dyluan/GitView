@@ -5,21 +5,28 @@
     </div>
     <div class="main_content">
       <ul>
-        @for (event of dataService.userEvents(); track $index) {
-          <li class="event">
-            <div class="image_container">
-              <img src="images/push.svg" alt="commit">
-            </div>
-            <div class="right">
-              <div class="title">{{ event.type }} to <span class="second_title">blablabal/dyluan</span></div>
-              <div class="sub_title">2 hours ago</div>
-              <div class="third"></div>
-            </div>
-          </li>
-          @if ($index !== 4) {
-            <div class="bottom_line"></div>
+        @if (dataService.userEvents().length === 0) {
+          <div class="event right title">
+            No recent activity
+          </div>
+        } @else {
+            @for (event of dataService.userEvents(); track $index) {
+            <li class="event">
+              <div class="image_container">
+                <img src="images/push.svg" alt="commit">
+              </div>
+              <div class="right">
+                <div class="title">{{ event.type }} to <span class="second_title">blablabal/dyluan</span></div>
+                <div class="sub_title">2 hours ago</div>
+                <div class="third"></div>
+              </div>
+            </li>
+            @if ($index !== 4) {
+              <div class="bottom_line"></div>
+            }
           }
         }
+        
       </ul>
     </div>
   </div>
