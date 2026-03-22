@@ -50,7 +50,7 @@ export class SearchBarComponent {
         console.log('user repositories:', userRepos);
         console.log('recent events:', userEvents);
         this.dataService.userRepositories.set(userRepos);
-        this.dataService.userEvents.set(userEvents.slice(0, 5));
+        this.dataService.userEvents.set(userEvents);
 
         const commitObservables = userRepos.map((repo: any) => {
           const repoName = repo.name;

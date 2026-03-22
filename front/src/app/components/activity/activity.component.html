@@ -1,24 +1,29 @@
 <div class="main">
   <div class="content">
-    <div class="header">
-      Recent Activity
-    </div>
+    <div class="header">Recent Activity</div>
     <div class="main_content">
       <ul>
-        @if (dataService.userEvents().length === 0) {
-          <div class="event right title">
-            No recent activity
-          </div>
+        @if (computedEvents().length === 0) {
+          <div class="event right title">No recent activity</div>
         } @else {
-            @for (event of dataService.userEvents(); track $index) {
+          @for (event of computedEvents(); track $index) {
             <li class="event">
-              <div class="image_container">
-                <img src="images/push.svg" alt="commit">
-              </div>
+              @if (event.rawType === "PushEvent") {
+                <div class="image_container" style="background-color: rgba(37, 106, 244, 0.1);">
+                  <img src="images/push.svg" alt="commit" />
+                </div>
+              } @else if (event.rawType === "CreateEvent") {
+                <div class="image_container" style="background-color: rgba(16, 185, 129, 0.1);">
+                  <img src="images/creation.svg" alt="creation" />
+                </div>
+              }
               <div class="right">
-                <div class="title">{{ event.type }} to <span class="second_title">blablabal/dyluan</span></div>
-                <div class="sub_title">2 hours ago</div>
-                <div class="third"></div>
+                <div class="title">
+                  {{ event.type }} to
+                  <span class="second_title">{{ event.target }}</span>
+                </div>
+                <div class="sub_title">{{ timeConverter(event.date) }}</div>
+                <div class="third">{{ event.number }}</div>
               </div>
             </li>
             @if ($index !== 4) {
@@ -26,7 +31,6 @@
             }
           }
         }
-        
       </ul>
     </div>
   </div>
