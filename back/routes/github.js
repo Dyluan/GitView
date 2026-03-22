@@ -131,7 +131,8 @@ router.get('/events', async (req, res) => {
       headers: {
         Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
         Accept: "application/vnd.github+json"
-      }
+      },
+      params: {per_page: 100}
     });
 
     res.status(response.status).json(response.data);
