@@ -21,34 +21,68 @@ export class ActivityComponent {
       if (
         temp.length > 0 &&
         temp[temp.length - 1].rawType === event.type &&
-        temp[temp.length - 1].target === event.repo.name
+        temp[temp.length - 1].target === event.repo.name &&
+        temp[temp.length -1].payload.action === event.payload.action
       ) {
         temp[temp.length - 1].number += 1;
         time = temp[temp.length -1].date;
-        console.log('same event, same repo:', event);
       } else {
         switch (event.type) {
           case 'PushEvent':
-            console.log('new push, different repo:', event);
             temp.push({
               rawType: event.type,
               target: event.repo.name,
               date: time,
               number: 1,
               type: `Pushed a commit`,
+              url: `https://github.com/${event.repo.name}`,
+              payload: event.payload
             });
             break;
           case 'CreateEvent':
-            console.log('new create, different repo:', event);
             temp.push({
               rawType: event.type,
               target: event.repo.name,
               date: time,
               number: 1,
               type: `Created a repository`,
+              url: `https://github.com/${event.repo.name}`,
+              payload: event.payload
+            });
+            break;
+          case 'PublicEvent':
+            temp.push({
+              rawType: event.type,
+              target: event.repo.name,
+              date: time,
+              number: 1,
+              type: `Made a repository public`,
+              url: `https://github.com/${event.repo.name}`,
+              payload: event.payload
+            });
+            break;
+          case 'PullRequestEvent':
+            // payload : action: "merged/ opened", number: x, pull_request {url: "http:...", id: x, number: x, base: {}, head: {}}
+            temp.push({
+              rawType: event.type,
+              target: event.repo.name,
+              date: time,
+              number: 1,
+              type: `${event.payload.action} a pull request`,
+              url: `https://github.com/${event.repo.name}`,
+              payload: event.payload
             });
             break;
           default:
+            temp.push({
+              rawType: event.type,
+              target: event.repo.name,
+              date: time,
+              number: 1,
+              type: `other`,
+              url: `https://github.com/${event.repo.name}`,
+              payload: event.payload
+            });
             break;
         }
       }

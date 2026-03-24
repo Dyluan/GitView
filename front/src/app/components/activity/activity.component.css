@@ -56,6 +56,13 @@ ul {
   height: 40px;
   width: 40px;
 }
+.image_container img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  aspect-ratio: 1/1;
+}
 .right {
   display: flex;
   flex-direction: column;
@@ -69,6 +76,10 @@ ul {
 }
 .second_title {
   color: #256AF4;
+}
+.second_title a {
+  text-decoration: none;
+  color: inherit;
 }
 .sub_title {
   font-size: 12px;

@@ -16,11 +16,19 @@
                 <div class="image_container" style="background-color: rgba(16, 185, 129, 0.1);">
                   <img src="images/creation.svg" alt="creation" />
                 </div>
+              } @else if (event.rawType === "PullRequestEvent" && event.payload.action === "merged") {
+                <div class="image_container" style="background-color: rgba(99, 102, 241, 0.1);">
+                  <img src="images/merge.svg" alt="creation" />
+                </div>
+              } @else if (event.rawType === "PullRequestEvent" && event.payload.action === "opened") {
+                <div class="image_container" style="background-color: rgba(99, 102, 241, 0.1);">
+                  <img src="images/pull_request.svg" alt="creation" />
+                </div>
               }
               <div class="right">
                 <div class="title">
                   {{ event.type }} to
-                  <span class="second_title">{{ event.target }}</span>
+                  <span class="second_title"><a [href]="event.url">{{ event.target }}</a></span>
                 </div>
                 <div class="sub_title">{{ timeConverter(event.date) }}</div>
                 <div class="third">{{ event.number }}</div>
